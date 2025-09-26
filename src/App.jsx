@@ -19,26 +19,25 @@ const API_KEY = import.meta.env.VITE_API_KEY;
 function App() {
   const [weather, setWeather] = useState(null);
   const [city, setCity] = useState("");
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
-  useEffect(() => {
- 
-  }, []);
-
+  useEffect(() => {}, []);
 
   const fetchWeather = async (city) => {
     if (!city) return;
 
     try {
       const response = await axios.get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`
+      );
+      setError("");
       setWeather(response.data);
       localStorage.setItem("lastSearchedCity", city);
       console.log(response.data);
     } catch (error) {
       console.log(error.response.data);
       setWeather(null);
-      if(error?.response?.data?.message=="city not found"){
+      if (error?.response?.data?.message == "city not found") {
         setError("City not found. Please try again.");
       }
     }
@@ -55,14 +54,13 @@ function App() {
 
   return (
     <div className="whether">
-        {weather?.weather?.[0]?.icon && (
-    <img
-  src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
-  alt={`Weather icon for ${weather.weather[0].description}`}
-  className="weatherIcon"
-/>
-
-  )}
+      {weather?.weather?.[0]?.icon && (
+        <img
+          src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`}
+          alt={`Weather icon for ${weather.weather[0].description}`}
+          className="weatherIcon"
+        />
+      )}
       <h1>Weather App</h1>
       <div className="search">
         <input
@@ -80,16 +78,16 @@ function App() {
           }}
         />
       </div>
-      <div>
-        {error && <p className="error">{error}</p>}
 
-      </div>
-    
+      <div>{error && <p className="error">{error}</p>}</div>
+
+  
+
       {weather && (
         <div className="main-card">
           <div>
             <h2 className="location">
-              <img src={locationIcon} alt="" className='loca' />
+              <img src={locationIcon} alt="" className="loca" />
               {weather.name} - {weather.sys.country}
             </h2>
           </div>
@@ -114,7 +112,8 @@ function App() {
           <div>
             <p>
               <img src={windIcon} alt="" className="windIcon" />
-              Wind Speed : {weather.wind.speed}m/s</p>
+              Wind Speed : {weather.wind.speed}m/s
+            </p>
           </div>
         </div>
       )}
