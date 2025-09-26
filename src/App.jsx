@@ -38,7 +38,9 @@ function App() {
     } catch (error) {
       console.log(error.response.data);
       setWeather(null);
-      setError("City not found!");
+      if(error?.response?.data?.message=="city not found"){
+        setError("City not found. Please try again.");
+      }
     }
   };
 
@@ -78,7 +80,11 @@ function App() {
           }}
         />
       </div>
+      <div>
+        {error && <p className="error">{error}</p>}
 
+      </div>
+    
       {weather && (
         <div className="main-card">
           <div>
