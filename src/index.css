@@ -1,14 +1,27 @@
-body{
-  background-color: #f2DDDc;
+:root{
+  color-scheme: light dark;
   margin: 0;
   display: grid;
   place-items: center;
+  font-family: poppins, sans-serif;
+
 }
 
 *{
-  margin-top: 5px;
+  margin-top: 5%;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: Poppins, sans-serif;
+  transition: all 0.3s ease;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+
 }
+
+body{
+  background-color: light-dark(#c5bfbf, #444);
+  margin: 0;
+  padding: 0;;
+}
+
 
